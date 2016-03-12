@@ -1,0 +1,11 @@
+test:
+  override:
+    - bundle exec middleman build
+
+deployment:
+  master:
+    branch: master
+    commands:
+      - bundle exec middleman build
+      - ssh -o 'StrictHostKeyChecking no' ooshimamari@128.199.65.92 'rm -r /var/www/example.com/html/*' || true
+      - scp -r build/* ooshimamari@128.199.65.92:/var/www/example.com/html/
